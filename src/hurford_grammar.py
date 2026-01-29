@@ -162,6 +162,7 @@ def generate_numbers(target_range: range, digits: list, bases: list, monomorphem
 
         # Loop through phrases to build numbers from addition and subtraction
         for phrase in phrases:
+          if phrase <= 99:
             # Addition: Phrase + Number
             if phrase % cur_base == 0 and 0 < n - phrase < cur_max_addend:              
                 addend = n - phrase
@@ -246,6 +247,7 @@ def generate_languages(grammars, language_constructions):
         name = language['language']
         digits = set(eval(language['digits']))
         bases = set(eval(language['bases']))
+        bases = {b for b in bases if b <= 98}
         monomorphemic = set(eval(language['monomorphemics']))
         curr_bases = eval(language['curr_bases'])
         number_addition_maxs = eval(language['number_addition_max'])

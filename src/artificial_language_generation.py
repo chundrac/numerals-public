@@ -4,9 +4,9 @@ import sys
 import copy
 
 # Max number of digits, bases, and monomorphemics for an artificial language
-MAX_DIGITS = 20
-MAX_NUM_BASES = 5
-MAX_MONOMORPHEMICS = 5
+MAX_DIGITS = 98
+MAX_NUM_BASES = 98
+MAX_MONOMORPHEMICS = 98
 
 # Max number of exceptions for an artificial language
 MAX_EXCEPTIONS = 5
@@ -38,7 +38,7 @@ def generate_bases(digits):
     bases = [digits[-1] + 1]
     numbers = list(range(1, 100))
     numbers = [x for x in numbers if x not in digits]
-    num = random.randint(0, MAX_NUM_BASES - 1)
+    num = random.randint(0, min(MAX_NUM_BASES,99-len(digits)) - 1)
     for i in range(num):
         numbers = [x for x in numbers if x not in bases]
         base = random.choice(numbers)
@@ -47,10 +47,10 @@ def generate_bases(digits):
 
 def generate_monomorphemics(digits, bases):
     monomorphemics = []
-    num = random.randint(0, MAX_MONOMORPHEMICS)
     numbers = list(range(1, 100))
     numbers = [x for x in numbers if x not in digits]
     numbers = [x for x in numbers if x not in bases]
+    num = random.randint(0, min(MAX_MONOMORPHEMICS,len(numbers)))
     monomorphemics = random.sample(numbers, num)
     return sorted(monomorphemics)
 
@@ -212,8 +212,9 @@ def mutate_bases(digits, bases, monomorphemic, curr_bases, number_addition_maxs,
         numbers = [x for x in numbers if x not in digits]
         numbers = [x for x in numbers if x not in bases]
         numbers = [x for x in numbers if x not in monomorphemic]
-        new_base = random.choice(numbers)
-        bases.append(new_base)
+        if numbers != []:
+            new_base = random.choice(numbers)
+            bases.append(new_base)
         bases.sort()
         curr_bases = generate_multiplication_rule(bases)
         new_number_addition_maxs = copy.deepcopy(curr_bases)

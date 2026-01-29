@@ -39,6 +39,9 @@ def main():
     first_gen_start_idx = first_gen_indices[1] if len(first_gen_indices) > 1 else first_gen_indices[0]
 
     optimal_art_langs = df.iloc[optimal_start_idx:first_gen_start_idx]
+    
+    optimal_art_langs.to_csv('optimal_values.csv', index=False)
+    
     first_gen_art_langs = df.iloc[first_gen_start_idx:]
 
     # NOTE: Didn't use mapped_color figure in final paper.
@@ -54,25 +57,25 @@ def main():
 
     
     # First plot with specific axes for natural languages
-    axes.scatter(
-        natural_languages['lexicon'], 
-        natural_languages['avg_ms_complexity'], 
-        color='red', 
-        marker='^', 
-        label='Natural Languages', 
-        zorder=2,
-        alpha=1,
-    )
-    axes.scatter(
-        first_gen_art_langs['lexicon'], 
-        first_gen_art_langs['avg_ms_complexity'], 
-        facecolors='white',
-        edgecolors='black', 
-        #color='gray',
-        label='First Gen. Artificial Languages', 
-        zorder=1,
-        alpha=1,
-    )
+    #axes.scatter(
+    #    natural_languages['lexicon'], 
+    #    natural_languages['avg_ms_complexity'], 
+    #    color='red', 
+    #    marker='^', 
+    #    label='Natural Languages', 
+    #    zorder=2,
+    #    alpha=1,
+    #)
+    #axes.scatter(
+    #    first_gen_art_langs['lexicon'], 
+    #    first_gen_art_langs['avg_ms_complexity'], 
+    #    facecolors='white',
+    #    edgecolors='black', 
+    #    #color='gray',
+    #    label='First Gen. Artificial Languages', 
+    #    zorder=1,
+    #    alpha=1,
+    #)
     axes.scatter(
         optimal_art_langs['lexicon'], 
         optimal_art_langs['avg_ms_complexity'], 
